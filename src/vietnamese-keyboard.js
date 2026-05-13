@@ -1,8 +1,21 @@
+export const VIETNAMESE_ALPHABET = Object.freeze([
+  'a', 'ă', 'â', 'b', 'c', 'd', 'đ', 'e', 'ê', 'g', 'h', 'i', 'k', 'l', 'm',
+  'n', 'o', 'ô', 'ơ', 'p', 'q', 'r', 's', 't', 'u', 'ư', 'v', 'x', 'y',
+]);
+
 export const VIETNAMESE_KEYBOARD_LAYOUT = Object.freeze([
   {
     id: 'letters',
     label: '越南語字母',
-    keys: ['ă', 'â', 'đ', 'ê', 'ô', 'ơ', 'ư'].map((value) => ({ value, type: 'insert' })),
+    keys: VIETNAMESE_ALPHABET.map((value) => ({ value, type: 'insert' })),
+  },
+  {
+    id: 'editing',
+    label: '空格與修正',
+    keys: [
+      { value: 'space', insert: ' ', type: 'insert' },
+      { value: 'xoá', type: 'backspace' },
+    ],
   },
   {
     id: 'tones',
@@ -104,6 +117,55 @@ export function insertVietnameseCharacter(currentValue, selectionStart, selectio
     value: nextValue,
     selectionStart: nextCursor,
     selectionEnd: nextCursor,
+  };
+}
+
+function deletePreviousCharacter(currentValue, selectionStart, selectionEnd) {
+  const value = String(currentValue ?? '');
+  const start = Math.max(0, selectionStart ?? value.length);
+  const end = Math.max(start, selectionEnd ?? start);
+
+  if (start !== end) {
+    return {
+      value: `${value.slice(0, start)}${value.slice(end)}`,
+      selectionStart: start,
+      selectionEnd: start,
+    };
+  }
+
+  if (start === 0) {
+    return { value, selectionStart: 0, selectionEnd: 0 };
+  }
+
+  const previousIndex = start - 1;
+  return {
+    value: `${value.slice(0, previousIndex)}${value.slice(start)}`,
+    selectionStart: previousIndex,
+    selectionEnd: previousIndex,
+  };
+}
+
+export function handleVietnameseKeyboardAction(currentValue, selectionStart, selectionEnd, key) {
+  const value = String(currentValue ?? '');
+  const start = Math.max(0, selectionStart ?? value.length);
+  const end = Math.max(start, selectionEnd ?? start);
+
+  if (key?.type === 'insert') {
+    return insertVietnameseCharacter(value, start, end, key.insert ?? key.value);
+  }
+
+  if (key?.type === 'backspace') {
+    return deletePreviousCharacter(value, start, end);
+  }
+
+  const nextValue = key?.mark === 'clear'
+    ? clearVietnameseTone(value)
+    : applyVietnameseTone(value, key?.mark);
+
+  return {
+    value: nextValue,
+    selectionStart: start,
+    selectionEnd: start,
   };
 }
 

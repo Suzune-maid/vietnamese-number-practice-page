@@ -1,11 +1,9 @@
 import { findAudioEntryForQuestion, summarizeManifestAvailability } from './audio-manifest.js';
 import { playAudioFiles } from './audio-player.js';
-import { checkAnswer, createQuestion } from './quiz-engine.js';
+import { checkAnswer, createQuestion, formatChoiceOption, isScoredMode } from './quiz-engine.js';
 import {
   VIETNAMESE_KEYBOARD_LAYOUT,
-  applyVietnameseTone,
-  clearVietnameseTone,
-  insertVietnameseCharacter,
+  handleVietnameseKeyboardAction,
 } from './vietnamese-keyboard.js';
 
 const state = {
@@ -36,6 +34,8 @@ const elements = {
   reveal: document.querySelector('#reveal-button'),
   next: document.querySelector('#next-button'),
   feedback: document.querySelector('#feedback'),
+  progressStats: document.querySelector('#progress-stats'),
+  progressNote: document.querySelector('#progress-note'),
   streak: document.querySelector('#streak-count'),
   correct: document.querySelector('#correct-count'),
   total: document.querySelector('#total-count'),
@@ -50,6 +50,9 @@ function currentConfig() {
 }
 
 function updateProgress() {
+  const scored = isScoredMode(state.question?.mode);
+  elements.progressStats.hidden = !scored;
+  elements.progressNote.hidden = scored;
   elements.streak.textContent = String(state.streak);
   elements.correct.textContent = String(state.correct);
   elements.total.textContent = String(state.total);
@@ -125,7 +128,7 @@ async function playCurrentAudio() {
   const files = audioFilesForEntry(state.currentAudioEntry);
 
   try {
-    setFeedback(`正在播放：${state.currentAudioEntry.text}`, 'neutral');
+    setFeedback('請聽音檔後作答。', 'neutral');
     await playAudioFiles(files, { signal: state.audioController.signal });
   } catch (error) {
     if (playbackId !== state.audioPlaybackId || String(error?.message ?? '').includes('cancelled')) {
@@ -152,7 +155,8 @@ function renderOptions(question) {
   for (const value of question.options) {
     const button = document.createElement('button');
     button.type = 'button';
-    button.textContent = String(value);
+    button.textContent = formatChoiceOption(value, question.thousandStyle);
+    button.setAttribute('aria-label', `選項 ${formatChoiceOption(value, question.thousandStyle)}`);
     button.addEventListener('click', () => submitAnswer(String(value)));
     elements.options.append(button);
   }
@@ -181,20 +185,10 @@ function renderKeyboard() {
 
 function handleKeyboardKey(key) {
   const input = elements.input;
-  if (key.type === 'insert') {
-    const result = insertVietnameseCharacter(input.value, input.selectionStart, input.selectionEnd, key.value);
-    input.value = result.value;
-    input.focus();
-    input.setSelectionRange(result.selectionStart, result.selectionEnd);
-    return;
-  }
-
-  if (key.mark === 'clear') {
-    input.value = clearVietnameseTone(input.value);
-  } else {
-    input.value = applyVietnameseTone(input.value, key.mark);
-  }
+  const result = handleVietnameseKeyboardAction(input.value, input.selectionStart, input.selectionEnd, key);
+  input.value = result.value;
   input.focus();
+  input.setSelectionRange(result.selectionStart, result.selectionEnd);
 }
 
 function renderQuestion() {
@@ -210,7 +204,7 @@ function renderQuestion() {
 
   elements.promptLabel.textContent = isListening ? '聽力題' : '題目';
   elements.promptValue.textContent = isListening && state.currentAudioEntry
-    ? '請聽音檔後選數字'
+    ? '請聽音檔後選答案'
     : isListening
       ? question.answer.primary
       : question.prompt;
@@ -221,6 +215,7 @@ function renderQuestion() {
   elements.input.value = '';
 
   renderOptions(question);
+  updateProgress();
   setFeedback(isListening && !state.currentAudioEntry
     ? '聽力音檔尚未產生，暫時顯示越南語輔助。'
     : '準備好了，請作答。');

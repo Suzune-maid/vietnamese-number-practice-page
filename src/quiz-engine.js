@@ -65,6 +65,14 @@ export function createMultipleChoiceOptions(correctValue, range, rng = Math.rand
   return shuffle([...options].slice(0, 4), rng);
 }
 
+export function formatChoiceOption(value, thousandStyle = 'explicit') {
+  return numberToVietnamese(value, { thousandStyle });
+}
+
+export function isScoredMode(mode) {
+  return mode === 'choice' || mode === 'typing' || mode === 'listening-choice';
+}
+
 export function createQuestion(config = {}, rng = Math.random) {
   const mode = config.mode ?? 'flashcard';
   const range = RANGE_PRESETS[config.rangeId ?? '0-10'] ?? RANGE_PRESETS['0-10'];

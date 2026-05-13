@@ -22,9 +22,9 @@ python3 -m http.server 4173
 
 ## 目前狀態
 
-- 最新本機 commit：`e1c0099 [verified] add northern chunked audio interface`。
-- 測試基準：`npm test`，目前 `47/47` 通過。
-- 已完成本機瀏覽器 smoke test：頁面可渲染、TTS marker 可見、既有 `0–10 / northern-explicit` 音檔可觸發播放、未產生音檔的千位題目會正確 fallback。
+- 最新發布內容：本輪修正播放不洩漏答案、閃卡不計分、選項顯示越南語、完整頁面鍵盤。
+- 測試基準：`npm test`，目前 `54/54` 通過。
+- 已完成本機瀏覽器 smoke test：頁面可渲染、TTS marker 可見、既有 `0–10 / northern-explicit` 音檔可觸發播放且不顯示答案、未產生音檔的千位題目會正確 fallback、選擇題選項顯示越南語、輸入鍵盤可輸入完整越南語字母與聲調。
 - 已通過 Codex pre-commit review，未發現安全問題或邏輯錯誤。
 - 已 push 並啟用 GitHub Pages：<https://suzune-maid.github.io/vietnamese-number-practice-page/>。
 - Pages live 驗證已通過：`index.html`、`src/app.js`、`audio/manifest.json`、代表性 WAV asset 皆回傳 HTTP 200。

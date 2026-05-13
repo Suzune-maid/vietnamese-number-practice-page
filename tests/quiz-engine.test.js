@@ -5,6 +5,8 @@ import {
   checkAnswer,
   createMultipleChoiceOptions,
   createQuestion,
+  formatChoiceOption,
+  isScoredMode,
   RANGE_PRESETS,
 } from '../src/quiz-engine.js';
 
@@ -64,4 +66,16 @@ test('checks multiple choice answer by numeric value', () => {
   assert.equal(checkAnswer(question, String(question.value)).correct, true);
   assert.equal(checkAnswer(question, String(question.value + 1)).correct, false);
   assert.equal(checkAnswer(question, `${question.value}abc`).correct, false);
+});
+
+test('formats multiple choice options as Vietnamese text for display', () => {
+  assert.equal(formatChoiceOption(25, 'explicit'), 'hai mươi lăm');
+  assert.equal(formatChoiceOption(2026, 'compact'), 'hai nghìn hai mươi sáu');
+});
+
+test('scores answer-based practice modes but not flashcards', () => {
+  assert.equal(isScoredMode('flashcard'), false);
+  assert.equal(isScoredMode('choice'), true);
+  assert.equal(isScoredMode('typing'), true);
+  assert.equal(isScoredMode('listening-choice'), true);
 });

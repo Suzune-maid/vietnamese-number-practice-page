@@ -232,6 +232,14 @@ button:hover {
   color: var(--error);
 }
 
+.progress-note {
+  background: #f8f8ff;
+  border-radius: 16px;
+  color: var(--muted);
+  margin: 0;
+  padding: 1rem;
+}
+
 .progress dl {
   display: grid;
   gap: 0.75rem;
