@@ -36,7 +36,9 @@ Natural Northern Vietnamese pronunciation. Clear, friendly, medium-slow pace for
 
 預期靜態音檔位置：
 
-- `audio/northern-explicit/<number>.mp3`
-- `audio/northern-compact/<number>.mp3`
+- `audio/northern-explicit/<number>.wav`
+- `audio/northern-compact/<number>.wav`
+
+目前 OpenRouter 的 Gemini TTS 回覆 `pcm`，本地包成 WAV；若未來上游支援 mp3，manifest 也可改為指向 `.mp3`。
 
 網頁會嘗試讀取 `audio/manifest.json`。只有 manifest 中有對應 `value` + `audioStyle` 的題目，才會顯示播放按鈕。

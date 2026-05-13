@@ -17,7 +17,8 @@
 
 - Phase 0–3：MVP 題庫、越南語鍵盤、練習 UI 已完成並通過 Codex pre-commit review。
 - Phase 4–6：已加入靜態音訊 manifest 契約、OpenRouter Gemini TTS batch JSONL 產生器，以及頁面播放按鈕接線。
-- 真實 TTS 批次產生尚未執行：API 呼叫會離開本機且可能消耗額度，需取得明確同意後再跑。
+- 大批次真實 TTS 尚未執行：API 呼叫會離開本機且可能消耗額度，需取得明確同意後再擴大範圍。
+- 2026-05-13：已取得同意並產生 `0–10 / northern-explicit` WAV smoke pack，manifest 已指向 11 筆 validated audio assets。
 
 ## TTS manifest 契約
 
@@ -32,8 +33,8 @@
   "audioStyle": "northern-explicit",
   "dialect": "Northern Vietnamese",
   "text": "một trăm lẻ năm",
-  "file": "audio/northern-explicit/105.mp3",
-  "format": "mp3"
+  "file": "audio/northern-explicit/105.wav",
+  "format": "wav"
 }
 ```
 

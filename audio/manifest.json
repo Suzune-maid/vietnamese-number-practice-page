@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-13T20:49:04+08:00",
+  "generator": "gemini-tts-cli via OpenRouter google/gemini-3.1-flash-tts-preview",
+  "style": "Natural Northern Vietnamese pronunciation. Clear, friendly, medium-slow pace for a beginner language learner. Read the number exactly once.",
+  "entries": [
+    {
+      "id": "northern-explicit-0",
+      "value": 0,
+      "audioStyle": "northern-explicit",
+      "dialect": "Northern Vietnamese",
+      "text": "không",
+      "file": "audio/northern-explicit/0.wav",
+      "format": "wav",
+      "durationSeconds": 1.16,
+      "sha256": "307d889791701830cbca1841a3e4914b76de261450d4fb78889347bb37517ea6"
+    },
+    {
+      "id": "northern-explicit-1",
+      "value": 1,
+      "audioStyle": "northern-explicit",
+      "dialect": "Northern Vietnamese",
+      "text": "một",
+      "file": "audio/northern-explicit/1.wav",
+      "format": "wav",
+      "durationSeconds": 1.32,
+      "sha256": "0fa79401f636fabb8254b7840c6d297862a1d2f6ccba710632db15a0d1b7cb17"
+    },
+    {
+      "id": "northern-explicit-2",
+      "value": 2,
+      "audioStyle": "northern-explicit",
+      "dialect": "Northern Vietnamese",
+      "text": "hai",
+      "file": "audio/northern-explicit/2.wav",
+      "format": "wav",
+      "durationSeconds": 1.12,
+      "sha256": "adc3037dbff92aeb07eebab0e1d6a21c681e19849e740723262ad9cf2dbc368d"
+    },
+    {
+      "id": "northern-explicit-3",
+      "value": 3,
+      "audioStyle": "northern-explicit",
+      "dialect": "Northern Vietnamese",
+      "text": "ba",
+      "file": "audio/northern-explicit/3.wav",
+      "format": "wav",
+      "durationSeconds": 1.04,
+      "sha256": "00e179246359be84faf162f220005b5f2eb1c45a5a5c031fe241b0935087077c"
+    },
+    {
+      "id": "northern-explicit-4",
+      "value": 4,
+      "audioStyle": "northern-explicit",
+      "dialect": "Northern Vietnamese",
+      "text": "bốn",
+      "file": "audio/northern-explicit/4.wav",
+      "format": "wav",
+      "durationSeconds": 1.32,
+      "sha256": "07d518bd43fd5b8886df858222a9f3b72aa76b9908fd69f177d104e9c86a8625"
+    },
+    {
+      "id": "northern-explicit-5",
+      "value": 5,
+      "audioStyle": "northern-explicit",
+      "dialect": "Northern Vietnamese",
+      "text": "năm",
+      "file": "audio/northern-explicit/5.wav",
+      "format": "wav",
+      "durationSeconds": 0.96,
+      "sha256": "bd74534d912568f67e50cea912669d33fb38227ac833e11e03a79b1ee19b050a"
+    },
+    {
+      "id": "northern-explicit-6",
+      "value": 6,
+      "audioStyle": "northern-explicit",
+      "dialect": "Northern Vietnamese",
+      "text": "sáu",
+      "file": "audio/northern-explicit/6.wav",
+      "format": "wav",
+      "durationSeconds": 1.24,
+      "sha256": "896601a57b6911425a40e6067ea5b2da08955d3c806fc8a66626ff166fa965f4"
+    },
+    {
+      "id": "northern-explicit-7",
+      "value": 7,
+      "audioStyle": "northern-explicit",
+      "dialect": "Northern Vietnamese",
+      "text": "bảy",
+      "file": "audio/northern-explicit/7.wav",
+      "format": "wav",
+      "durationSeconds": 1.16,
+      "sha256": "6e6c85c0fae6b5f1d2e70b94f7afdbf94af64754711ef20b790d9c430a5b315f"
+    },
+    {
+      "id": "northern-explicit-8",
+      "value": 8,
+      "audioStyle": "northern-explicit",
+      "dialect": "Northern Vietnamese",
+      "text": "tám",
+      "file": "audio/northern-explicit/8.wav",
+      "format": "wav",
+      "durationSeconds": 1.08,
+      "sha256": "15945672bffd91271da779e2ec5ca3e4ba8e7d8cafe25a6dc8c75a4ed1bfce9c"
+    },
+    {
+      "id": "northern-explicit-9",
+      "value": 9,
+      "audioStyle": "northern-explicit",
+      "dialect": "Northern Vietnamese",
+      "text": "chín",
+      "file": "audio/northern-explicit/9.wav",
+      "format": "wav",
+      "durationSeconds": 1.28,
+      "sha256": "4e0259505b2ccc013288e8d26a2489c62b6feb3d901aeaec9a8ba3691b8ca3b1"
+    },
+    {
+      "id": "northern-explicit-10",
+      "value": 10,
+      "audioStyle": "northern-explicit",
+      "dialect": "Northern Vietnamese",
+      "text": "mười",
+      "file": "audio/northern-explicit/10.wav",
+      "format": "wav",
+      "durationSeconds": 1.76,
+      "sha256": "b718ba76ae6bc38bf8b58ee6e547a2cd1d8708868e742679fa319f6d377251fa"
+    }
+  ]
+}
