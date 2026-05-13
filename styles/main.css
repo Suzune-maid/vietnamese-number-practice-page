@@ -169,6 +169,10 @@ input {
   justify-content: center;
 }
 
+.actions {
+  margin-top: 1.25rem;
+}
+
 button {
   background: var(--accent);
   border: 0;
