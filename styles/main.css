@@ -224,6 +224,10 @@ button:hover {
   min-width: 3rem;
 }
 
+.feedback {
+  margin-top: 1rem;
+}
+
 .feedback[data-kind='success'] {
   color: var(--success);
 }

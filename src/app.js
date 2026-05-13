@@ -102,7 +102,7 @@ function updateAudioControls(question) {
     return;
   }
 
-  elements.playAudio.textContent = '播放 Gemini TTS';
+  elements.playAudio.textContent = '播放語音';
   updateAudioStatus(`Gemini TTS 音檔：${question.audioStyle} 可播放`);
 }
 
@@ -155,8 +155,11 @@ function renderOptions(question) {
   for (const value of question.options) {
     const button = document.createElement('button');
     button.type = 'button';
-    button.textContent = formatChoiceOption(value, question.thousandStyle);
-    button.setAttribute('aria-label', `選項 ${formatChoiceOption(value, question.thousandStyle)}`);
+    const optionText = question.mode === 'listening-choice'
+      ? String(value)
+      : formatChoiceOption(value, question.thousandStyle);
+    button.textContent = optionText;
+    button.setAttribute('aria-label', `選項 ${optionText}`);
     button.addEventListener('click', () => submitAnswer(String(value)));
     elements.options.append(button);
   }
@@ -175,6 +178,7 @@ function renderKeyboard() {
       const button = document.createElement('button');
       button.type = 'button';
       button.textContent = key.value;
+      button.addEventListener('pointerdown', (event) => event.preventDefault());
       button.addEventListener('click', () => handleKeyboardKey(key));
       fieldset.append(button);
     }
@@ -187,7 +191,6 @@ function handleKeyboardKey(key) {
   const input = elements.input;
   const result = handleVietnameseKeyboardAction(input.value, input.selectionStart, input.selectionEnd, key);
   input.value = result.value;
-  input.focus();
   input.setSelectionRange(result.selectionStart, result.selectionEnd);
 }
 
@@ -204,7 +207,7 @@ function renderQuestion() {
 
   elements.promptLabel.textContent = isListening ? '聽力題' : '題目';
   elements.promptValue.textContent = isListening && state.currentAudioEntry
-    ? '請聽音檔後選答案'
+    ? '請聽聲音後選阿拉伯數字'
     : isListening
       ? question.answer.primary
       : question.prompt;
