@@ -16,11 +16,14 @@
 
 ## 目前進度
 
-- Phase 0–3：MVP 題庫、越南語鍵盤、練習 UI 已完成並通過 Codex pre-commit review。
-- Phase 4–6：已加入靜態音訊 manifest 契約、OpenRouter Gemini TTS batch JSONL 產生器，以及頁面播放按鈕接線。
-- Phase 6.5：已決定最終音訊方案為 B 方案 + 北越口音；程式支援 `entries` 完整音檔與 `chunks` 片段序列，並預留 `southern-*` accent 接口。
+- Phase 0–3：MVP 題庫、越南語鍵盤、練習 UI 已完成並通過 Codex pre-commit review；commit `0c30bc3`。
+- Phase 4–6：已加入靜態音訊 manifest 契約、OpenRouter Gemini TTS batch JSONL 產生器，以及頁面播放按鈕接線；commit `576aa48`。
+- 2026-05-13：已取得同意並產生 `0–10 / northern-explicit` WAV smoke pack，manifest 已指向 11 筆 validated audio assets；commit `12f3097`。
+- 2026-05-13：修正練習動作區距離；commit `af9061b`。
+- Phase 6.5：已決定最終音訊方案為 B 方案 + 北越口音；程式支援 `entries` 完整音檔與 `chunks` 片段序列，並預留 `southern-*` accent 接口；commit `e1c0099`。
+- Phase 6.5 驗證狀態：`npm test` 目前 `47/47` 通過；本機瀏覽器 smoke test 已驗證頁面渲染、marker、既有音檔播放與未產生音檔 fallback；Codex pre-commit review PASS。
 - 大批次真實 TTS 尚未執行：API 呼叫會離開本機且可能消耗額度，需取得明確同意後再擴大範圍；正式擴產前需先補 B 方案 chunk 專用 batch 產生器。
-- 2026-05-13：已取得同意並產生 `0–10 / northern-explicit` WAV smoke pack，manifest 已指向 11 筆 validated audio assets。
+- 尚未 push / 尚未啟用 GitHub Pages 發布。
 
 ## TTS manifest 契約
 

@@ -20,6 +20,14 @@ python3 -m http.server 4173
 
 打開：<http://127.0.0.1:4173/>
 
+## 目前狀態
+
+- 最新本機 commit：`e1c0099 [verified] add northern chunked audio interface`。
+- 測試基準：`npm test`，目前 `47/47` 通過。
+- 已完成本機瀏覽器 smoke test：頁面可渲染、TTS marker 可見、既有 `0–10 / northern-explicit` 音檔可觸發播放、未產生音檔的千位題目會正確 fallback。
+- 已通過 Codex pre-commit review，未發現安全問題或邏輯錯誤。
+- 尚未 push / 尚未啟用 GitHub Pages 發布。
+
 ## TTS 批次準備
 
 最終採 **B 方案 / 北越口音**：
