@@ -22,9 +22,9 @@ python3 -m http.server 4173
 
 ## 目前狀態
 
-- 最新發布內容：本輪修正播放按鈕文案、模式命名與排序、聽聲音選阿拉伯數字、作答提示間距、頁面鍵盤不再主動 focus 輸入框。
-- 測試基準：`npm test`，目前 `58/58` 通過。
-- 已完成本機瀏覽器 smoke test：頁面可渲染、模式順序為閃卡／看數字選越南語／聽聲音選阿拉伯數字／輸入練習、播放按鈕為「播放語音」、feedback margin-top 為 16px、看數字選越南語模式顯示越南語選項、聽聲音選阿拉伯數字模式顯示阿拉伯數字選項、輸入鍵盤不會主動呼叫 input focus。
+- 最新發布內容：本輪修正播放按鈕文案、模式命名與排序、聽聲音選阿拉伯數字、作答提示間距、頁面鍵盤不再主動 focus 輸入框，並讓兩種選擇模式在點選選項時播放該選項語音。
+- 測試基準：`npm test`，目前 `59/59` 通過。
+- 已完成本機瀏覽器 smoke test：頁面可渲染、模式順序為閃卡／看數字選越南語／聽聲音選阿拉伯數字／輸入練習、播放按鈕為「播放語音」、feedback margin-top 為 16px、看數字選越南語模式顯示越南語選項、聽聲音選阿拉伯數字模式顯示阿拉伯數字選項、兩種選擇模式點選選項會播放該選項語音、輸入鍵盤不會主動呼叫 input focus。
 - 已通過 Codex pre-commit review，未發現安全問題或邏輯錯誤。
 - 已 push 並啟用 GitHub Pages：<https://suzune-maid.github.io/vietnamese-number-practice-page/>。
 - Pages live 驗證已通過：`index.html`、`src/app.js`、`audio/manifest.json`、代表性 WAV asset 皆回傳 HTTP 200。

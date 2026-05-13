@@ -21,7 +21,7 @@
 - 2026-05-13：已取得同意並產生 `0–10 / northern-explicit` WAV smoke pack，manifest 已指向 11 筆 validated audio assets；commit `12f3097`。
 - 2026-05-13：修正練習動作區距離；commit `af9061b`。
 - Phase 6.5：已決定最終音訊方案為 B 方案 + 北越口音；程式支援 `entries` 完整音檔與 `chunks` 片段序列，並預留 `southern-*` accent 接口；commit `e1c0099`。
-- Phase 6.5 驗證狀態：`npm test` 目前 `58/58` 通過；本機瀏覽器 smoke test 已驗證頁面渲染、播放按鈕短文案、模式命名與排序、聽聲音選阿拉伯數字、feedback 間距、頁面鍵盤不主動 focus 輸入框；Codex pre-commit review PASS。
+- Phase 6.5 驗證狀態：`npm test` 目前 `59/59` 通過；本機瀏覽器 smoke test 已驗證頁面渲染、播放按鈕短文案、模式命名與排序、聽聲音選阿拉伯數字、feedback 間距、兩種選擇模式點選選項播放該選項語音、頁面鍵盤不主動 focus 輸入框；Codex pre-commit review PASS。
 - 大批次真實 TTS 尚未執行：API 呼叫會離開本機且可能消耗額度，需取得明確同意後再擴大範圍；正式擴產前需先補 B 方案 chunk 專用 batch 產生器。
 - 2026-05-13：已建立 GitHub repo、push `main`，並啟用 GitHub Pages；live URL：<https://suzune-maid.github.io/vietnamese-number-practice-page/>。
 - Pages live 驗證狀態：`index.html`、`src/app.js`、`audio/manifest.json`、代表性 WAV asset 皆回傳 HTTP 200；browser smoke test 已確認頁面標題、marker、既有 TTS 播放路徑與 console clean。

@@ -62,3 +62,11 @@ test('listening-choice asks users to select Arabic numerals', () => {
 test('on-page keyboard buttons do not refocus the input after every tap', () => {
   assert.doesNotMatch(appSource, /input\.focus\(\)/);
 });
+
+test('choice buttons submit the selected value and play that option audio', () => {
+  assert.match(appSource, /function playOptionAudio\(value\)/);
+  assert.match(appSource, /function audioQuestionForOption\(value\)/);
+  assert.match(appSource, /\.\.\.state\.question,[\s\S]*value,[\s\S]*prompt: String\(value\)/);
+  assert.match(appSource, /findAudioEntryForQuestion\(state\.audioManifest, optionQuestion\)/);
+  assert.match(appSource, /button\.addEventListener\('click', \(\) => \{\s*void playOptionAudio\(value\);\s*submitAnswer\(String\(value\)\);\s*\}\)/);
+});

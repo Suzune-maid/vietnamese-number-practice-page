@@ -138,6 +138,40 @@ async function playCurrentAudio() {
   }
 }
 
+function audioQuestionForOption(value) {
+  if (!state.question) return null;
+
+  return {
+    ...state.question,
+    id: `${state.question.mode}-option-${value}-${state.question.thousandStyle}`,
+    value,
+    prompt: String(value),
+    answer: {
+      primary: formatChoiceOption(value, state.question.thousandStyle),
+      aliases: [],
+    },
+  };
+}
+
+async function playOptionAudio(value) {
+  const optionQuestion = audioQuestionForOption(value);
+  const optionAudioEntry = findAudioEntryForQuestion(state.audioManifest, optionQuestion);
+  if (!optionAudioEntry) return;
+
+  cancelAudioPlayback();
+
+  const playbackId = state.audioPlaybackId;
+  state.audioController = new AbortController();
+
+  try {
+    await playAudioFiles(audioFilesForEntry(optionAudioEntry), { signal: state.audioController.signal });
+  } catch (error) {
+    if (playbackId !== state.audioPlaybackId || String(error?.message ?? '').includes('cancelled')) {
+      return;
+    }
+  }
+}
+
 function answerSummary(question) {
   const aliasText = question.answer.aliases.length > 0
     ? `補充可接受：${question.answer.aliases.slice(0, 2).join(' / ')}`
@@ -160,7 +194,10 @@ function renderOptions(question) {
       : formatChoiceOption(value, question.thousandStyle);
     button.textContent = optionText;
     button.setAttribute('aria-label', `選項 ${optionText}`);
-    button.addEventListener('click', () => submitAnswer(String(value)));
+    button.addEventListener('click', () => {
+      void playOptionAudio(value);
+      submitAnswer(String(value));
+    });
     elements.options.append(button);
   }
 }
