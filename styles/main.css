@@ -151,6 +151,16 @@ input {
   font-weight: 700;
 }
 
+.dialect-note {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0.75rem 0 0;
+}
+
+.audio-button {
+  margin-top: 1rem;
+}
+
 .choice-options,
 .actions {
   display: flex;

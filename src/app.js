@@ -1,3 +1,4 @@
+import { findAudioEntryForQuestion, summarizeManifestAvailability } from './audio-manifest.js';
 import { checkAnswer, createQuestion } from './quiz-engine.js';
 import {
   VIETNAMESE_KEYBOARD_LAYOUT,
@@ -11,6 +12,9 @@ const state = {
   streak: 0,
   correct: 0,
   total: 0,
+  audioManifest: null,
+  currentAudioEntry: null,
+  audio: null,
 };
 
 const elements = {
@@ -20,6 +24,9 @@ const elements = {
   promptLabel: document.querySelector('#prompt-label'),
   promptValue: document.querySelector('#prompt-value'),
   vietnameseHint: document.querySelector('#vietnamese-hint'),
+  dialectNote: document.querySelector('#dialect-note'),
+  playAudio: document.querySelector('#play-audio-button'),
+  audioStatus: document.querySelector('#audio-status'),
   options: document.querySelector('#choice-options'),
   typingForm: document.querySelector('#typing-form'),
   input: document.querySelector('#answer-input'),
@@ -49,6 +56,65 @@ function updateProgress() {
 function setFeedback(message, kind = 'neutral') {
   elements.feedback.textContent = message;
   elements.feedback.dataset.kind = kind;
+}
+
+function updateAudioStatus(message = null) {
+  const summary = summarizeManifestAvailability(state.audioManifest);
+  elements.audioStatus.textContent = message ?? summary.message;
+}
+
+async function loadAudioManifest() {
+  try {
+    const response = await fetch('audio/manifest.json', { cache: 'no-store' });
+    if (!response.ok) {
+      state.audioManifest = null;
+      updateAudioStatus();
+      return;
+    }
+
+    state.audioManifest = await response.json();
+    updateAudioStatus();
+    renderQuestion();
+  } catch {
+    state.audioManifest = null;
+    updateAudioStatus('Gemini TTS 音檔：讀取失敗');
+  }
+}
+
+function updateDialectNote(question) {
+  const aliases = question.answer.aliases.filter((alias) => alias.includes('ngàn'));
+  elements.dialectNote.textContent = aliases.length > 0
+    ? `南越補充：${aliases.slice(0, 2).join(' / ')}`
+    : '南越補充：這題目前沒有主要差異。';
+}
+
+function updateAudioControls(question) {
+  state.currentAudioEntry = findAudioEntryForQuestion(state.audioManifest, question);
+  elements.playAudio.hidden = !state.currentAudioEntry;
+
+  if (!state.currentAudioEntry) {
+    updateAudioStatus(state.audioManifest ? 'Gemini TTS 音檔：此題尚未產生' : null);
+    return;
+  }
+
+  elements.playAudio.textContent = '播放 Gemini TTS';
+  updateAudioStatus(`Gemini TTS 音檔：${question.audioStyle} 可播放`);
+}
+
+async function playCurrentAudio() {
+  if (!state.currentAudioEntry) return;
+
+  if (state.audio) {
+    state.audio.pause();
+  }
+
+  state.audio = new Audio(state.currentAudioEntry.file);
+  try {
+    await state.audio.play();
+    setFeedback(`正在播放：${state.currentAudioEntry.text}`, 'neutral');
+  } catch {
+    setFeedback('瀏覽器暫時無法播放音檔，請再按一次播放。', 'error');
+  }
 }
 
 function answerSummary(question) {
@@ -119,8 +185,15 @@ function renderQuestion() {
   const isFlashcard = question.mode === 'flashcard';
   const isListening = question.mode === 'listening-choice';
 
-  elements.promptLabel.textContent = isListening ? '聽力題（音檔接入前先顯示越南語）' : '題目';
-  elements.promptValue.textContent = isListening ? question.answer.primary : question.prompt;
+  updateDialectNote(question);
+  updateAudioControls(question);
+
+  elements.promptLabel.textContent = isListening ? '聽力題' : '題目';
+  elements.promptValue.textContent = isListening && state.currentAudioEntry
+    ? '請聽音檔後選數字'
+    : isListening
+      ? question.answer.primary
+      : question.prompt;
   elements.vietnameseHint.hidden = true;
   elements.vietnameseHint.textContent = '';
   elements.typingForm.hidden = !isTyping;
@@ -128,7 +201,9 @@ function renderQuestion() {
   elements.input.value = '';
 
   renderOptions(question);
-  setFeedback('準備好了，請作答。');
+  setFeedback(isListening && !state.currentAudioEntry
+    ? '聽力音檔尚未產生，暫時顯示越南語輔助。'
+    : '準備好了，請作答。');
 }
 
 function nextQuestion() {
@@ -164,6 +239,7 @@ function bindEvents() {
   elements.thousandStyle.addEventListener('change', nextQuestion);
   elements.next.addEventListener('click', nextQuestion);
   elements.reveal.addEventListener('click', revealAnswer);
+  elements.playAudio.addEventListener('click', playCurrentAudio);
   elements.typingForm.addEventListener('submit', (event) => {
     event.preventDefault();
     submitAnswer(elements.input.value);
@@ -174,3 +250,4 @@ renderKeyboard();
 bindEvents();
 updateProgress();
 nextQuestion();
+loadAudioManifest();
