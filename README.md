@@ -26,7 +26,8 @@ python3 -m http.server 4173
 - 測試基準：`npm test`，目前 `47/47` 通過。
 - 已完成本機瀏覽器 smoke test：頁面可渲染、TTS marker 可見、既有 `0–10 / northern-explicit` 音檔可觸發播放、未產生音檔的千位題目會正確 fallback。
 - 已通過 Codex pre-commit review，未發現安全問題或邏輯錯誤。
-- 尚未 push / 尚未啟用 GitHub Pages 發布。
+- 已 push 並啟用 GitHub Pages：<https://suzune-maid.github.io/vietnamese-number-practice-page/>。
+- Pages live 驗證已通過：`index.html`、`src/app.js`、`audio/manifest.json`、代表性 WAV asset 皆回傳 HTTP 200。
 
 ## TTS 批次準備
 
