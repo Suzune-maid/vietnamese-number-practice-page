@@ -1,4 +1,5 @@
 import { findAudioEntryForQuestion, summarizeManifestAvailability } from './audio-manifest.js';
+import { playAudioFiles } from './audio-player.js';
 import { checkAnswer, createQuestion } from './quiz-engine.js';
 import {
   VIETNAMESE_KEYBOARD_LAYOUT,
@@ -14,7 +15,8 @@ const state = {
   total: 0,
   audioManifest: null,
   currentAudioEntry: null,
-  audio: null,
+  audioController: null,
+  audioPlaybackId: 0,
 };
 
 const elements = {
@@ -101,18 +103,34 @@ function updateAudioControls(question) {
   updateAudioStatus(`Gemini TTS 音檔：${question.audioStyle} 可播放`);
 }
 
+function cancelAudioPlayback() {
+  if (state.audioController) {
+    state.audioController.abort();
+    state.audioController = null;
+  }
+  state.audioPlaybackId += 1;
+}
+
+function audioFilesForEntry(entry) {
+  return entry.files ?? [entry.file];
+}
+
 async function playCurrentAudio() {
   if (!state.currentAudioEntry) return;
 
-  if (state.audio) {
-    state.audio.pause();
-  }
+  cancelAudioPlayback();
 
-  state.audio = new Audio(state.currentAudioEntry.file);
+  const playbackId = state.audioPlaybackId;
+  state.audioController = new AbortController();
+  const files = audioFilesForEntry(state.currentAudioEntry);
+
   try {
-    await state.audio.play();
     setFeedback(`正在播放：${state.currentAudioEntry.text}`, 'neutral');
-  } catch {
+    await playAudioFiles(files, { signal: state.audioController.signal });
+  } catch (error) {
+    if (playbackId !== state.audioPlaybackId || String(error?.message ?? '').includes('cancelled')) {
+      return;
+    }
     setFeedback('瀏覽器暫時無法播放音檔，請再按一次播放。', 'error');
   }
 }
@@ -180,6 +198,8 @@ function handleKeyboardKey(key) {
 }
 
 function renderQuestion() {
+  cancelAudioPlayback();
+
   const question = state.question;
   const isTyping = question.mode === 'typing';
   const isFlashcard = question.mode === 'flashcard';
