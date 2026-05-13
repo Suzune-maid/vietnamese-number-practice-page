@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="北越為主的越南語數字練習頁，支援閃卡、選擇題、輸入練習與頁面內越南語鍵盤。"
+    />
+    <title>越南語數字練習</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <p class="eyebrow">Vietnamese Number Practice</p>
+        <h1>越南語數字練習</h1>
+        <p>
+          北越念法為主，南越差異作為補充。先練熟數字規則，再接上 Gemini TTS 固定音檔。
+        </p>
+      </header>
+
+      <section class="panel controls" aria-labelledby="settings-title">
+        <h2 id="settings-title">練習設定</h2>
+        <label>
+          模式
+          <select id="mode-select">
+            <option value="flashcard">閃卡</option>
+            <option value="choice">選擇題</option>
+            <option value="typing">輸入練習</option>
+            <option value="listening-choice">聽力選擇（暫以文字輔助）</option>
+          </select>
+        </label>
+        <label>
+          範圍
+          <select id="range-select">
+            <option value="0-10">0–10</option>
+            <option value="11-20">11–20</option>
+            <option value="0-99">0–99</option>
+            <option value="100-999">100–999</option>
+            <option value="1000-9999">1000–9999</option>
+          </select>
+        </label>
+        <label>
+          千位念法
+          <select id="thousand-style-select">
+            <option value="explicit">教材式完整</option>
+            <option value="compact">日常簡略</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="panel practice-card" aria-labelledby="practice-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Practice</p>
+            <h2 id="practice-title">練習區</h2>
+          </div>
+          <p id="audio-status" class="pill">Gemini TTS 音檔：尚未產生</p>
+        </div>
+
+        <div class="prompt-box">
+          <p id="prompt-label">題目</p>
+          <p id="prompt-value" class="prompt-value">—</p>
+          <p id="vietnamese-hint" class="vietnamese-hint" hidden></p>
+        </div>
+
+        <div id="choice-options" class="choice-options" hidden></div>
+
+        <form id="typing-form" class="typing-form" hidden>
+          <label for="answer-input">輸入越南語答案</label>
+          <input id="answer-input" autocomplete="off" inputmode="text" />
+          <div id="keyboard" class="keyboard" aria-label="頁面內越南語鍵盤"></div>
+          <button type="submit">送出答案</button>
+        </form>
+
+        <div class="actions">
+          <button id="reveal-button" type="button">揭示答案</button>
+          <button id="next-button" type="button">下一題</button>
+        </div>
+
+        <p id="feedback" class="feedback" role="status"></p>
+      </section>
+
+      <section class="panel progress" aria-labelledby="progress-title">
+        <h2 id="progress-title">進度</h2>
+        <dl>
+          <div><dt>連勝</dt><dd id="streak-count">0</dd></div>
+          <div><dt>答對</dt><dd id="correct-count">0</dd></div>
+          <div><dt>總題數</dt><dd id="total-count">0</dd></div>
+        </dl>
+      </section>
+
+      <section class="panel reference" aria-labelledby="reference-title">
+        <h2 id="reference-title">快速規則</h2>
+        <ul>
+          <li>北越主線：`nghìn`；南越補充：`ngàn`。</li>
+          <li>21：`hai mươi mốt`；25：`hai mươi lăm`。</li>
+          <li>105：`một trăm lẻ năm`。</li>
+          <li>2026 可練完整：`hai nghìn không trăm hai mươi sáu`，也可練簡略：`hai nghìn hai mươi sáu`。</li>
+        </ul>
+      </section>
+    </main>
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>
