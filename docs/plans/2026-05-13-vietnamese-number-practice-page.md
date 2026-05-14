@@ -22,8 +22,9 @@
 - 2026-05-13：修正練習動作區距離；commit `af9061b`。
 - Phase 6.5：已決定最終音訊方案為 B 方案 + 北越口音；程式支援 `entries` 完整音檔與 `chunks` 片段序列，並預留 `southern-*` accent 接口；commit `e1c0099`。
 - Phase 6.5 驗證狀態：`npm test` 目前 `59/59` 通過；本機瀏覽器 smoke test 已驗證頁面渲染、播放按鈕短文案、模式命名與排序、聽聲音選阿拉伯數字、feedback 間距、兩種選擇模式點選選項播放該選項語音、頁面鍵盤不主動 focus 輸入框；Codex pre-commit review PASS。
-- Phase 7：已依明確同意執行北越 B 方案真實 TTS，產生 `1117` 個 WAV chunks；`audio/manifest.json` 已更新為 `11` 筆完整題目 entry + `1117` 筆 chunk entry。新增 chunk batch generator、manifest builder、生成 runbook 與驗證測試。
-- Phase 7 驗證狀態：`npm test` 目前 `66/66` 通過；完整 WAV 檢查 `1117/1117` 通過，manifest 引用、sha256、路徑安全檢查皆通過；本機瀏覽器 smoke test 已驗證千位教材式完整／日常簡略 chunk 序列與 `6007` 低位補片段路由。
+- Phase 7：已依明確同意執行北越 B 方案真實 TTS，產生 `1117` 個 WAV chunks；`audio/manifest.json` 已更新為 `11` 筆完整題目 entry + `1117` 筆 chunk entry。新增 chunk batch generator、manifest builder、生成 runbook 與驗證測試；commit `015012b`。
+- Phase 7 驗證狀態：`npm test` 目前 `66/66` 通過；完整 WAV 檢查 `1117/1117` 通過，manifest 引用、sha256、路徑安全檢查皆通過；本機瀏覽器 smoke test 已驗證千位教材式完整／日常簡略 chunk 序列與 `6007` 低位補片段路由；Codex pre-commit review PASS。
+- Phase 7 發布狀態：本機 `main` 目前領先遠端，完整音檔包尚未 push 到 GitHub Pages，等待明確同意後再上線。
 - 2026-05-13：已建立 GitHub repo、push `main`，並啟用 GitHub Pages；live URL：<https://suzune-maid.github.io/vietnamese-number-practice-page/>。
 - Pages live 驗證狀態：`index.html`、`src/app.js`、`audio/manifest.json`、代表性 WAV asset 皆回傳 HTTP 200；browser smoke test 已確認頁面標題、marker、既有 TTS 播放路徑與 console clean。
 

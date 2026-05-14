@@ -16,12 +16,13 @@
 - Live site: `https://suzune-maid.github.io/vietnamese-number-practice-page/`
 - Static-site repo path: `/home/atmjin/.hermes/archive/github/vietnamese-number-practice-page`
 - TTS CLI repo path: `/home/atmjin/.hermes/archive/github/gemini-tts-cli`
-- Current committed audio before the Phase 7 publish:
+- Current committed audio before the Phase 7 pack:
   - `audio/northern-explicit/0.wav` through `audio/northern-explicit/10.wav` are the smoke pack.
-  - `audio/manifest.json` keeps those 11 full-number compatibility entries.
-- Current local Phase 7 production pack:
+  - `audio/manifest.json` kept those 11 full-number compatibility entries.
+- Current local Phase 7 production pack, committed as `015012b` and not pushed yet:
   - `audio/chunks/northern/` contains the full B-plan Northern chunk set: 1,117 WAV files.
   - `audio/manifest.json` contains 11 full-number compatibility entries plus 1,117 chunk entries with duration, size, and sha256 metadata.
+  - Verification baseline: `npm test` = 66/66, WAV/manifest deterministic check = 1,117/1,117 valid, Codex pre-commit review = PASS.
 - Current production target:
   - Northern Vietnamese only.
   - Southern Vietnamese audio is interface-reserved, not generated yet.
