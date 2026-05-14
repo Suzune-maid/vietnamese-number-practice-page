@@ -16,9 +16,12 @@
 - Live site: `https://suzune-maid.github.io/vietnamese-number-practice-page/`
 - Static-site repo path: `/home/atmjin/.hermes/archive/github/vietnamese-number-practice-page`
 - TTS CLI repo path: `/home/atmjin/.hermes/archive/github/gemini-tts-cli`
-- Current committed audio:
-  - `audio/manifest.json` has 11 full-number compatibility entries.
+- Current committed audio before the Phase 7 publish:
   - `audio/northern-explicit/0.wav` through `audio/northern-explicit/10.wav` are the smoke pack.
+  - `audio/manifest.json` keeps those 11 full-number compatibility entries.
+- Current local Phase 7 production pack:
+  - `audio/chunks/northern/` contains the full B-plan Northern chunk set: 1,117 WAV files.
+  - `audio/manifest.json` contains 11 full-number compatibility entries plus 1,117 chunk entries with duration, size, and sha256 metadata.
 - Current production target:
   - Northern Vietnamese only.
   - Southern Vietnamese audio is interface-reserved, not generated yet.
@@ -62,9 +65,12 @@ Computed baseline from current source code:
   "compactDifferent": 891,
   "compactSame": 8109,
   "estimatedCostUsdAt00006385PerClip": 0.7132,
-  "estimatedCostUsdWith30PercentBuffer": 0.9272
+  "estimatedCostUsdWith30PercentBuffer": 0.9272,
+  "observedCostUsdAt0001806PerClip": 2.0173
 }
 ```
+
+Actual Phase 7 run note: the first 843 clips consumed about `$1.52`, or roughly `$0.001806` per clip, higher than the early estimate. At that observed rate, the full 1,117-clip pack is about `$2.0173`, and the 274-clip resume pass is about `$0.4948`.
 
 Note: the existing `0–10` full-number smoke WAV files are useful as a quality reference, but the chunked production manifest expects paths under `audio/chunks/northern/...`. Prefer regenerating the complete 1,117 chunk pack for consistency unless the user explicitly chooses to copy/reuse the existing smoke files.
 

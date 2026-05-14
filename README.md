@@ -22,12 +22,11 @@ python3 -m http.server 4173
 
 ## 目前狀態
 
-- 最新發布內容：本輪修正播放按鈕文案、模式命名與排序、聽聲音選阿拉伯數字、作答提示間距、頁面鍵盤不再主動 focus 輸入框，並讓兩種選擇模式在點選選項時播放該選項語音。
-- 測試基準：`npm test`，目前 `59/59` 通過。
-- 已完成本機瀏覽器 smoke test：頁面可渲染、模式順序為閃卡／看數字選越南語／聽聲音選阿拉伯數字／輸入練習、播放按鈕為「播放語音」、feedback margin-top 為 16px、看數字選越南語模式顯示越南語選項、聽聲音選阿拉伯數字模式顯示阿拉伯數字選項、兩種選擇模式點選選項會播放該選項語音、輸入鍵盤不會主動呼叫 input focus。
-- 已通過 Codex pre-commit review，未發現安全問題或邏輯錯誤。
-- 已 push 並啟用 GitHub Pages：<https://suzune-maid.github.io/vietnamese-number-practice-page/>。
-- Pages live 驗證已通過：`index.html`、`src/app.js`、`audio/manifest.json`、代表性 WAV asset 皆回傳 HTTP 200。
+- 最新本機內容：已產生北越 B 方案完整片段音檔，共 `1117` 個 WAV chunks，並更新 `audio/manifest.json`。
+- Manifest 目前保留 `11` 筆 `0–10 / northern-explicit` 完整題目相容 entry，另含 `1117` 筆北越 chunk entries。
+- 測試基準：`npm test`，目前 `66/66` 通過。
+- 已完成本機瀏覽器 smoke test：頁面可渲染、完整 chunk manifest 載入、千位教材式完整／日常簡略播放會組出正確 chunk 序列，代表題 `6007` 會分別使用 `explicit-low-remainder` 與 `compact-low-digit` 補片段；console clean。
+- GitHub Pages 已啟用：<https://suzune-maid.github.io/vietnamese-number-practice-page/>。本輪完整音檔尚未 push，需確認後才會上線。
 
 ## TTS 批次準備
 
@@ -39,11 +38,14 @@ python3 -m http.server 4173
 - manifest 可同時支援舊的完整題目 entry（`entries`）與 B 方案片段（`chunks`）；播放端會先找完整音檔，找不到時再組片段序列。
 - 目前主線只產生北越口音；未來若要加南越口音，可新增 `southern-explicit` / `southern-compact` 的 chunk entries，不需改題庫核心。
 
-產生 OpenRouter Gemini TTS batch JSONL（目前 CLI 仍是完整題目 entry 產生器；B 方案 chunk 專用批次產生器會在正式擴產前補上）：
+產生 OpenRouter Gemini TTS batch JSONL：
 
 ```bash
 npm run tts:batch -- --min=0 --max=99 --audio-style=northern-explicit
 npm run tts:batch -- --min=1000 --max=9999 --audio-style=northern-compact
+
+node scripts/prepare-tts-chunk-batches.js --accent=northern --output-dir=tmp/tts-batches/chunks/northern
+node scripts/build-audio-manifest.js --accent=northern
 ```
 
 建議語音風格：

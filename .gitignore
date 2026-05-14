@@ -4,3 +4,6 @@ node_modules/
 *.log
 reports/
 tmp/
+audio/tts-batches/
+audio/tts-reports/
+audio/tts-debug/
