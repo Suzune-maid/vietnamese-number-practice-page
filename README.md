@@ -64,3 +64,5 @@ Natural Northern Vietnamese pronunciation. Clear, friendly, medium-slow pace for
 目前 OpenRouter 的 Gemini TTS 回覆 `pcm`，本地包成 WAV；若未來上游支援 mp3，manifest 也可改為指向 `.mp3`。
 
 網頁會嘗試讀取 `audio/manifest.json`。只有 manifest 中有對應 `value` + `audioStyle` 的完整題目音檔，或能組出完整 B 方案 `chunks` 序列的題目，才會顯示播放按鈕。
+
+後續正式語音生成 runbook：[`docs/tts-generation-runbook.md`](docs/tts-generation-runbook.md)。
