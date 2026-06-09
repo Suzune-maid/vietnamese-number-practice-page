@@ -22,11 +22,12 @@ python3 -m http.server 4173
 
 ## 目前狀態
 
-- 最新本機內容：commit `015012b` 已產生北越 B 方案完整片段音檔，共 `1117` 個 WAV chunks，並更新 `audio/manifest.json`。
+- 最新已同步內容：commit `23017a6` 已推送至 `origin/main`，並更新 Phase 7 北越完整音檔包狀態文件。
+- 北越 B 方案完整片段音檔已產生並上線，共 `1117` 個 WAV chunks。
 - Manifest 目前保留 `11` 筆 `0–10 / northern-explicit` 完整題目相容 entry，另含 `1117` 筆北越 chunk entries。
 - 測試基準：`npm test`，目前 `66/66` 通過。
 - 已完成本機瀏覽器 smoke test：頁面可渲染、完整 chunk manifest 載入、千位教材式完整／日常簡略播放會組出正確 chunk 序列，代表題 `6007` 會分別使用 `explicit-low-remainder` 與 `compact-low-digit` 補片段；console clean。
-- GitHub Pages 已啟用：<https://suzune-maid.github.io/vietnamese-number-practice-page/>。本輪完整音檔目前只在本機 commit，尚未 push；需確認後才會上線。
+- GitHub Pages 已啟用並完成 live 驗證：<https://suzune-maid.github.io/vietnamese-number-practice-page/>。Live `audio/manifest.json` 已含 `1117` 筆北越 chunk entries，代表 WAV assets 回傳 HTTP 200。
 
 ## TTS 批次準備
 

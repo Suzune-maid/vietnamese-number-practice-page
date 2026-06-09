@@ -19,10 +19,10 @@
 - Current committed audio before the Phase 7 pack:
   - `audio/northern-explicit/0.wav` through `audio/northern-explicit/10.wav` are the smoke pack.
   - `audio/manifest.json` kept those 11 full-number compatibility entries.
-- Current local Phase 7 production pack, committed as `015012b` and not pushed yet:
+- Deployed Phase 7 production pack, originally committed as `015012b` and later published to GitHub Pages:
   - `audio/chunks/northern/` contains the full B-plan Northern chunk set: 1,117 WAV files.
   - `audio/manifest.json` contains 11 full-number compatibility entries plus 1,117 chunk entries with duration, size, and sha256 metadata.
-  - Verification baseline: `npm test` = 66/66, WAV/manifest deterministic check = 1,117/1,117 valid, Codex pre-commit review = PASS.
+  - Verification baseline: `npm test` = 66/66, WAV/manifest deterministic check = 1,117/1,117 valid, Codex pre-commit review = PASS, live GitHub Pages manifest = 1,117 chunk entries with representative WAV assets returning HTTP 200.
 - Current production target:
   - Northern Vietnamese only.
   - Southern Vietnamese audio is interface-reserved, not generated yet.
